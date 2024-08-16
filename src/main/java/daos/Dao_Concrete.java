@@ -4,10 +4,10 @@ import java.sql.*;
 import java.util.*;
 
 public class Dao_Concrete<T> implements Dao<Boolean> {
-    static String username = "mohammed";
-    static String password = "mohammed";
-    static String dbUrl = "jdbc:mysql://localhost:3306/mystudents";
-
+//    static String username = "mohammed";
+//    static String password = "mohammed";
+//    static String dbUrl = "jdbc:mysql://localhost:3306/mystudents";
+    ConnectionFactory connectionFactory = new ConnectionFactory();
 
 
     private User extractUserFromResultSet(ResultSet rs) throws SQLException {
@@ -20,7 +20,8 @@ public class Dao_Concrete<T> implements Dao<Boolean> {
 
     @Override
     public User findById(int id) throws SQLException {
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+//        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+        Connection connection = ConnectionFactory.getConnection();
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM user WHERE id=" + id);
@@ -38,7 +39,9 @@ public class Dao_Concrete<T> implements Dao<Boolean> {
 
     @Override
     public Set<User> findAll() throws SQLException {
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+//        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+        Connection connection = ConnectionFactory.getConnection();
+
         Set<User> userList = new HashSet<>();
         try {
             Statement stmt = connection.createStatement();
@@ -58,7 +61,9 @@ public class Dao_Concrete<T> implements Dao<Boolean> {
 
     @Override
     public Boolean update(User user) throws SQLException {
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+//        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+        Connection connection = ConnectionFactory.getConnection();
+
         try {
             PreparedStatement ps = connection.prepareStatement("UPDATE user SET name=?, password=?, age=? WHERE id=?");
             ps.setString(1, user.getName());
@@ -81,7 +86,9 @@ public class Dao_Concrete<T> implements Dao<Boolean> {
 
     @Override
     public Boolean create(User user) throws SQLException {
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+//        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+        Connection connection = ConnectionFactory.getConnection();
+
         try {
             PreparedStatement ps = connection.prepareStatement("INSERT INTO user VALUES (?, ?,?, ?)");
             ps.setInt(1, user.getId());
@@ -104,7 +111,9 @@ public class Dao_Concrete<T> implements Dao<Boolean> {
     @Override
     public void delete(int id) throws SQLException {
 
-        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+//        Connection connection = DriverManager.getConnection(dbUrl, username, password);
+        Connection connection = ConnectionFactory.getConnection();
+
         try {
             Statement stmt = connection.createStatement();
             int rs = stmt.executeUpdate("DELETE FROM user WHERE id=" + id);
