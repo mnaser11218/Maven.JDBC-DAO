@@ -61,7 +61,6 @@ public class Dao_Concrete<T> implements Dao<Boolean> {
 
     @Override
     public Boolean update(User user) throws SQLException {
-//        Connection connection = DriverManager.getConnection(dbUrl, username, password);
         Connection connection = ConnectionFactory.getConnection();
 
         try {
@@ -86,7 +85,6 @@ public class Dao_Concrete<T> implements Dao<Boolean> {
 
     @Override
     public Boolean create(User user) throws SQLException {
-//        Connection connection = DriverManager.getConnection(dbUrl, username, password);
         Connection connection = ConnectionFactory.getConnection();
 
         try {
@@ -110,10 +108,7 @@ public class Dao_Concrete<T> implements Dao<Boolean> {
 
     @Override
     public void delete(int id) throws SQLException {
-
-//        Connection connection = DriverManager.getConnection(dbUrl, username, password);
         Connection connection = ConnectionFactory.getConnection();
-
         try {
             Statement stmt = connection.createStatement();
             int rs = stmt.executeUpdate("DELETE FROM user WHERE id=" + id);
